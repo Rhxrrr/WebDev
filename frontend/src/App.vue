@@ -1,5 +1,7 @@
-<script setup></script>
+<script setup>
+import Homepage from "./pages/Homepage.vue";
+</script>
 
 <template>
-  <div>Hello world</div>
+  <Homepage />
 </template>
