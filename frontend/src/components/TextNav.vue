@@ -7,7 +7,7 @@ import GlobeSVG from "@media/Globe.vue";
   >
     <div class="text-primary-paige text-center grid grid-cols-3">
       <span>Time: 00:00</span>
-      <span>WMP: 98</span>
+      <span>WPM: 98</span>
       <span>Accuracy: 98%</span>
     </div>
     <button

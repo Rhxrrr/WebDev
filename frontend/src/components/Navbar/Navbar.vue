@@ -72,34 +72,53 @@ const handleClick = async (item) => {
 
 <template>
   <nav class="p-2 bg-secondary-grey flex rounded-lg text-primary-grey">
+    <!-- Text Items (Stories, Race, Code) -->
     <div class="grid grid-cols-3">
       <button
         v-for="item in textItems"
         :key="item.label"
-        class="hover:text-primary-paige flex items-center justify-center w-full space-x-1"
+        class="group hover:text-primary-paige flex items-center justify-center w-full space-x-1"
         :disabled="isLoading"
         @click="handleClick(item)"
       >
         <component :is="item.icon" />
-        <span>{{ item.label }}</span>
+        <span class="relative">
+          <span>{{ item.label }}</span>
+          <span
+            class="absolute left-0 -bottom-0.5 h-0.5 w-0 bg-primary-paige transition-all duration-300 group-hover:w-full"
+          ></span>
+        </span>
       </button>
     </div>
+
+    <!-- Separator -->
     <div
       class="seperator mx-2 w-[2px] h-full bg-primary-paige rounded-full"
     ></div>
+
+    <!-- Nav Items (Leaderboard, Graph, Button) -->
     <div class="grid grid-cols-3">
       <button
         v-for="item in navItems"
         :key="item.label"
-        class="hover:text-primary-paige flex items-center justify-center w-full space-x-1"
+        class="group hover:text-primary-paige flex items-center justify-center w-full space-x-1"
       >
         <component :is="item.icon" />
-        <span> {{ item.label }}</span>
+        <span class="relative">
+          <span>{{ item.label }}</span>
+          <span
+            class="absolute left-0 -bottom-0.5 h-0.5 w-0 bg-primary-paige transition-all duration-300 group-hover:w-full"
+          ></span>
+        </span>
       </button>
     </div>
+
+    <!-- Separator -->
     <div
       class="seperator mx-2 w-[2px] h-full bg-primary-paige rounded-full"
     ></div>
+
+    <!-- Word Length Options -->
     <div class="grid grid-cols-5">
       <button
         class="hover:text-primary-paige flex items-center justify-center w-full mx-2"
