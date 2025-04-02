@@ -50,9 +50,8 @@ onMounted(() => {
             v-for="(charObj, index) in formattedText"
             :key="index"
             :class="{
-              'text-red-500': charObj.correct === false, // Incorrect letter
-              'text-black': charObj.correct === true, // Correct letter
-              'text-gray-400': charObj.correct === null, // Untyped letters
+              'text-primary-red': charObj.correct === false, // Incorrect letter
+              'text-primary-paige': charObj.correct === true, // Correct letter
               'cursor-blink': charObj.cursor, // Cursor effect
             }"
           >
