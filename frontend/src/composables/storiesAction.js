@@ -16,7 +16,7 @@ export default async function storiesAction() {
     }
 
     const data = await response.json();
-    textContent.value = data.text; // assuming 'text' is part of the response from your backend
+    textContent.value = data.content; // assuming 'text' is part of the response from your backend
   } catch (error) {
     console.error("Error fetching text:", error);
     textContent.value =
