@@ -9,6 +9,17 @@ import { ref } from "vue";
 
 const isLoading = ref(false);
 
+/*
+  textItems & navItems: Array of buttons with labels, icons, and dynamic actions.
+  Each action is dynamically imported from the @composables directory.
+
+  @property {string} label - The name of the button.
+  @property {VueComponent} icon - The associated SVG icon component.
+  @property {Function} action - Function that dynamically imports the logic file. Is triggered when button is clicked
+
+  handleClick: Attached to the buttons avoids multiple calls before promise is returned.
+*/
+
 const textItems = [
   {
     label: "Stories",
