@@ -1,1 +1,65 @@
 @import "tailwindcss";
+
+@layer utilities {
+  .bg-primary-grey {
+    background-color: #2c2e30;
+  }
+  .bg-secondary-grey {
+    background-color: #27292b;
+  }
+  .text-primary-grey {
+    color: #595b5e;
+  }
+  .hover\:text-primary-paige:hover {
+    color: #d4c9be;
+  }
+  .text-primary-paige {
+    color: #d4c9be;
+  }
+  .bg-primary-paige {
+    background-color: #d4c9be;
+  }
+}
+
+.fade-text {
+  -webkit-mask-image: linear-gradient(to bottom, black 20%, transparent 100%);
+}
+
+.comic-neue-light {
+  font-family: "Comic Neue", cursive;
+  font-weight: 300;
+  font-style: normal;
+}
+
+.comic-neue-regular {
+  font-family: "Comic Neue", cursive;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.comic-neue-bold {
+  font-family: "Comic Neue", cursive;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.comic-neue-light-italic {
+  font-family: "Comic Neue", cursive;
+  font-weight: 300;
+  font-style: italic;
+}
+
+.comic-neue-regular-italic {
+  font-family: "Comic Neue", cursive;
+  font-weight: 400;
+  font-style: italic;
+}
+
+.comic-neue-bold-italic {
+  font-family: "Comic Neue", cursive;
+  font-weight: 700;
+  font-style: italic;
+}
+button {
+  cursor: pointer !important;
+}
