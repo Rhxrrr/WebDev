@@ -1,25 +1,19 @@
 <script setup>
+import { ref } from "vue";
 import StoriesSVG from "@media/Stories.vue";
 import LeaderboardSVG from "@media/Leaderboard.vue";
 import CodeSVG from "@media/Code.vue";
 import RaceSVG from "@media/Race.vue";
 import UserSVG from "@media/User.vue";
 import InfinitySVG from "@media/Infinity.vue";
-import { ref } from "vue";
 
+// Track loading state for button clicks
 const isLoading = ref(false);
 
-/*
-  textItems & navItems: Array of buttons with labels, icons, and dynamic actions.
-  Each action is dynamically imported from the @composables directory.
-
-  @property {string} label - The name of the button.
-  @property {VueComponent} icon - The associated SVG icon component.
-  @property {Function} action - Function that dynamically imports the logic file. Is triggered when button is clicked
-
-  handleClick: Attached to the buttons avoids multiple calls before promise is returned.
-*/
-
+/**
+ * List of primary text buttons with dynamic logic imports.
+ * Each button executes an external function when clicked.
+ */
 const textItems = [
   {
     label: "Stories",
@@ -38,25 +32,40 @@ const textItems = [
   },
 ];
 
+/**
+ * Navigation bar buttons.
+ * These buttons currently don't have actions assigned.
+ */
 const navItems = [
   { label: "Leaderboard", icon: LeaderboardSVG },
   { label: "Graph", icon: LeaderboardSVG },
   { label: "Button", icon: LeaderboardSVG },
 ];
 
+/**
+ * Word length options for selecting typing test difficulty.
+ */
 const wordLength = ["50", "100", "150"];
 
+/**
+ * Handles button clicks and executes the associated action.
+ * Prevents multiple clicks using `isLoading`.
+ *
+ * @param {Object} item - The clicked button item.
+ * @param {string} item.label - The label of the button.
+ * @param {Function} item.action - The function to dynamically import.
+ */
 const handleClick = async (item) => {
-  if (isLoading.value) return;
-  isLoading.value = true;
+  if (isLoading.value) return; // Prevent multiple clicks
 
+  isLoading.value = true;
   try {
-    const module = await item.action();
-    await module.default();
+    const module = await item.action(); // Dynamically import action
+    await module.default(); // Execute the imported function
   } catch (error) {
     console.error("Error executing action:", error);
   } finally {
-    isLoading.value = false;
+    isLoading.value = false; // Reset loading state
   }
 };
 </script>
