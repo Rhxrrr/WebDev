@@ -13,23 +13,14 @@ const inputRef = ref(null); // Reference to hidden input
 
 // Generate colored text based on correctness
 const formattedText = computed(() => {
-  let formattedArray = story.split("").map((char, index) => {
-    if (index < userInput.value.length) {
-      return {
-        char,
-        correct: userInput.value[index] === char,
-      };
-    }
-    return { char, correct: null };
+  return story.split("").map((char, index) => {
+    return {
+      char,
+      correct:
+        index < userInput.value.length ? userInput.value[index] === char : null,
+      cursor: index === userInput.value.length - 1, // Cursor should be on the last typed character
+    };
   });
-
-  // Add cursor at the end of typed text
-  formattedArray.splice(userInput.value.length, 0, {
-    char: "|",
-    correct: "cursor",
-  });
-
-  return formattedArray;
 });
 
 const focusInput = () => {
@@ -62,13 +53,11 @@ onMounted(() => {
               'text-red-500': charObj.correct === false, // Incorrect letter
               'text-black': charObj.correct === true, // Correct letter
               'text-gray-400': charObj.correct === null, // Untyped letters
-              'text-blue-500 animate-blink': charObj.correct === 'cursor', // Cursor
+              'cursor-blink': charObj.cursor, // Cursor effect
             }"
           >
             {{ charObj.char }}
           </span>
-
-          <span class="text-blue-500 animate-blink">|</span>
         </p>
       </div>
       <input
@@ -87,7 +76,9 @@ onMounted(() => {
   }
 }
 
-.animate-blink {
+.cursor-blink::after {
+  content: "|";
+  color: blue;
   animation: blink 1s infinite;
 }
 </style>
