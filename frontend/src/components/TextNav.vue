@@ -1,5 +1,5 @@
 <script setup>
-import GlobeSVG from "../icons/Globe.vue";
+import GlobeSVG from "@media/Globe.vue";
 </script>
 <template>
   <nav
