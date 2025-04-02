@@ -1,24 +1,26 @@
 <script setup>
-import { ref, computed, onMounted, nextTick } from "vue";
+import { ref, computed, onMounted, nextTick, watch } from "vue";
 import Navbar from "../components/Navbar/Navbar.vue";
 import TextNav from "../components/TextNav.vue";
 import { textContent } from "@composables/storiesAction.js";
 
 const story =
   textContent.value ||
-  'In the quiet town of Eldermere, nestled between rolling green hills and a dense, whispering forest, there lived an old clockmaker named Elias Thorne. His shop, "Thorne\’s Timepieces," sat at the heart of the town square, its wooden sign creaking gently in the wind. For over fifty years, Elias had repaired and crafted the finest clocks, each a masterpiece of precision and artistry. But there was one clock—an enormous, ornate grandfather clock—that had remained untouched in the corner of his workshop for as long as anyone could remember. Its dark mahogany frame was intricately carved with celestial symbols, and its pendulum, though perfectly balanced, never moved. One evening, as Elias sat polishing the gears of a pocket watch, a young boy named Oliver stepped into the shop. He was no stranger to Elias, having spent many afternoons watching him work, mesmerized by the delicate hands that breathed life into lifeless mechanisms. "Mr. Thorne," Oliver asked hesitantly, pointing at the grandfather clock, "why doesn\’t that one tick?" Elias paused, his fingers tightening around the watch. He let out a slow sigh and beckoned Oliver closer.';
-
+  'In the quiet town of Eldermere, nestled between rolling green hills and a dense, whispering forest, there lived an old clockmaker named Elias Thorne. His shop, "Thorne\’s Timepieces," sat at the heart of the town square, its wooden sign creaking gently in the wind. For over fifty years, Elias had repaired and crafted the finest clocks,';
 const userInput = ref(""); // Stores user's typed input
 const inputRef = ref(null); // Reference to hidden input
+const currentWordIndex = ref(0);
+const typedWords = ref([]);
+const incorrectWords = ref(new Set());
+const letterStates = ref(new Map()); // Stores classes for each letter
 
-// Generate colored text based on correctness
 const formattedText = computed(() => {
-  return story.split("").map((char, index) => {
+  return story.split(" ").map((word, wordIndex) => {
     return {
-      char,
-      correct:
-        index < userInput.value.length ? userInput.value[index] === char : null,
-      cursor: index === userInput.value.length - 1, // Cursor should be on the last typed character
+      word,
+      letters: word.split(""),
+      wordIndex,
+      typed: typedWords.value[wordIndex] || "",
     };
   });
 });
@@ -32,6 +34,40 @@ const focusInput = () => {
 onMounted(() => {
   nextTick(() => focusInput());
 });
+
+// Tracks typed letters and assigns correct/incorrect classes
+const getLetterClass = (wordIndex, charIndex, char) => {
+  const key = `${wordIndex}-${charIndex}`;
+  return letterStates.value.get(key) || "";
+};
+
+// Watch user input
+watch(userInput, (newValue) => {
+  const wordObj = formattedText.value[currentWordIndex.value];
+  const typedWord = newValue.trim();
+
+  // Update letter states dynamically
+  wordObj.letters.forEach((char, charIndex) => {
+    const key = `${currentWordIndex.value}-${charIndex}`;
+    letterStates.value.set(
+      key,
+      charIndex < newValue.length
+        ? newValue[charIndex] === char
+          ? "text-primary-paige"
+          : "text-primary-red"
+        : ""
+    );
+  });
+
+  if (newValue.endsWith(" ")) {
+    typedWords.value[currentWordIndex.value] = typedWord;
+    if (typedWord !== wordObj.word) {
+      incorrectWords.value.add(currentWordIndex.value);
+    }
+    currentWordIndex.value += 1;
+    userInput.value = "";
+  }
+});
 </script>
 
 <template>
@@ -44,20 +80,20 @@ onMounted(() => {
       class="flex flex-col w-[70%] flex-1 items-center justify-center text-primary-grey text-4xl font-semibold relative overflow-hidden"
     >
       <TextNav />
-      <div class="w-full relative">
-        <p class="overflow-hidden max-h-[250px] leading-relaxed fade-text">
+      <div class="w-full relative flex flex-wrap gap-2">
+        <div
+          v-for="wordObj in formattedText"
+          :key="wordObj.wordIndex"
+          class="word"
+        >
           <span
-            v-for="(charObj, index) in formattedText"
-            :key="index"
-            :class="{
-              'text-primary-red': charObj.correct === false, // Incorrect letter
-              'text-primary-paige': charObj.correct === true, // Correct letter
-              'cursor-blink': charObj.cursor, // Cursor effect
-            }"
+            v-for="(char, charIndex) in wordObj.letters"
+            :key="charIndex"
+            :class="getLetterClass(wordObj.wordIndex, charIndex, char)"
           >
-            {{ charObj.char }}
+            {{ char }}
           </span>
-        </p>
+        </div>
       </div>
       <input
         ref="inputRef"
@@ -69,15 +105,7 @@ onMounted(() => {
 </template>
 
 <style>
-@keyframes blink {
-  50% {
-    opacity: 0;
-  }
-}
-
-.cursor-blink::after {
-  content: "|";
-  color: blue;
-  animation: blink 1s infinite;
+.word {
+  margin: 0.3rem;
 }
 </style>
