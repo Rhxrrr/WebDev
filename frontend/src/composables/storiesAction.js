@@ -1,23 +1,29 @@
 import { ref } from "vue";
 
-// Use a shared reactive reference for the fetched text
+// Shared reactive reference for the fetched text
 export const textContent = ref("");
 
-export default async function storiesAction() {
+// aasynchronously fetches a story bsed on the provided type
+export default async function storiesAction(type) {
   try {
-    const response = await fetch("http://localhost:3000/api/stories");
+    // send a GET response to the backend API with the specified type as a query parame
+    const response = await fetch(
+      `http://localhost:3000/api/stories?type=${type}`
+    );
 
+    // if the response is not ok, attempt to extract and throw the error message
     if (!response.ok) {
-      // Check if the status code is 400 to display the custom message
       const errorData = await response.json();
       throw new Error(
         errorData.message || `HTTP error! Status: ${response.status}`
       );
     }
 
+    // parse the JSON response and update the reactive text content
     const data = await response.json();
-    textContent.value = data.content; // assuming 'text' is part of the response from your backend
+    textContent.value = data.content; // Make sure your backend returns 'content'
   } catch (error) {
+    // log any errors and set a fallback message
     console.error("Error fetching text:", error);
     textContent.value =
       error.message || "Failed to load text. Please try again! \n \n";

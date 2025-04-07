@@ -10,7 +10,9 @@
   },
   "dependencies": {
     "socket.io-client": "^4.8.1",
-    "vue": "^3.5.13"
+    "vue": "^3.5.13",
+    "d3": "^7.9.0",
+    "lodash-es": "^4.17.21"
   },
   "devDependencies": {
     "@tailwindcss/vite": "^4.0.17",
