@@ -29,14 +29,14 @@ const runMigrations = async () => {
     for (const file of migrationFiles) {
       const filePath = path.join(migrationsPath, file);
       const sql = fs.readFileSync(filePath, "utf-8");
-      console.log(`🚀 Running migration: ${file}`);
+      console.log(`Running migration: ${file}`);
       await pool.query(sql);
       await pool.query("INSERT INTO migrations (filename) VALUES ($1)", [file]); // Track it
     }
 
-    console.log("✅ All pending migrations applied.");
+    console.log("All pending migrations applied.");
   } catch (error) {
-    console.error("❌ Migration error:", error.message);
+    console.error("Migration error:", error.message);
   } finally {
     pool.end();
   }
