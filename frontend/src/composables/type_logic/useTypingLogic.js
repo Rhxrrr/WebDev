@@ -1,69 +1,127 @@
-import { ref, computed, watch, onMounted, nextTick } from "vue";
+import { watch, onMounted, onUnmounted, nextTick } from "vue";
+import { useTimer } from "../useTimer";
+import useTypingState from "./useTypingState";
+import useTypingHandlers from "./useTypingHandlers";
+import useTypingEvaluation from "./useTypingEvaluation";
+import useTypingUI from "./useTypingUI";
 
-export function useTypingLogic(storyText) {
-  const story =
-    storyText ||
-    'In the quiet town of Eldermere, nestled between rolling green hills and a dense, whispering forest, there lived an old clockmaker named Elias Thorne. His shop, "Thorne’s Timepieces," sat at the heart of the town square, its wooden sign creaking gently in the wind. For over fifty years, Elias had repaired and crafted the finest clocks,';
+/**
+ * Core composable that orchestrates the typing test logic.
+ * Coordinates state, evaluation, input handling, and UI behavior.
+ *
+ * @param {Ref<Array<{ word: string }>>} formattedText - The structured text the user will type.
+ * @param {Ref<number>} accuracy - Reactive reference to the accuracy percentage.
+ * @param {Ref<number>} durationRef - Duration (in seconds) of the typing test.
+ * @param {Function} getLineMap - Function to retrieve line positioning data for scrolling.
+ * @param {Function} scrollToLine - Function to scroll to a specific line.
+ *
+ * @returns {Object} Exposed refs and functions used in the typing test.
+ */
+export default function useTypingTest(
+  formattedText,
+  accuracy,
+  durationRef,
+  getLineMap,
+  scrollToLine
+) {
+  // --- Typing state management ---
+  const {
+    inputRef,
+    userInput,
+    typedWords,
+    currentWordIndex,
+    isWordCorrect,
+    typingStarted,
+    typingEnded,
+    resetTypingState,
+    correctCharsCount,
+    mistakesCounter,
+    totalExpectedLetters,
+    lastLine,
+  } = useTypingState(formattedText, accuracy);
 
-  const userInput = ref(""); // Stores user's typed input
-  const inputRef = ref(null); // Reference to hidden input
-  const currentWordIndex = ref(0);
-  const typedWords = ref([]);
-  const incorrectWords = ref(new Set());
-  const letterStates = ref(new Map()); // Stores classes for each letter
+  // --- Timer logic (starts/stops based on typing state) ---
+  const { time, formattedTime, resetTimer, elapsedTime } = useTimer(
+    typingStarted,
+    typingEnded,
+    durationRef
+  );
 
-  // Format the text into words and letters
-  const formattedText = computed(() => {
-    return story.split(" ").map((word, wordIndex) => ({
-      word,
-      letters: word.split(""),
-      wordIndex,
-      typed: typedWords.value[wordIndex] || "",
-    }));
+  // --- Keyboard handling and input focus ---
+  const { handleKeyDown, focusInput } = useTypingHandlers({
+    inputRef,
+    userInput,
+    currentWordIndex,
+    typedWords,
+    isWordCorrect,
   });
-  // Function to get CSS class for each letter
-  const getLetterClass = (wordIndex, charIndex, char) => {
-    const key = `${wordIndex}-${charIndex}`;
-    return letterStates.value.get(key) || "";
-  };
 
-  // Watch user input
-  watch(userInput, (newValue) => {
-    const wordObj = formattedText.value[currentWordIndex.value];
-    const typedWord = newValue.trim();
+  // --- Evaluation logic: accuracy, WPM, mistake counting ---
+  const { countAccuracy, wpm } = useTypingEvaluation({
+    formattedText,
+    currentWordIndex,
+    userInput,
+    correctCharsCount,
+    mistakesCounter,
+    totalExpectedLetters,
+    accuracy,
+    elapsedTime,
+    typingEnded,
+    typingStarted,
+    typedWords,
+    isWordCorrect,
+    scrollToLine,
+    getLineMap,
+    lastLine,
+  });
 
-    // Update letter states dynamically
-    wordObj.letters.forEach((char, charIndex) => {
-      const key = `${currentWordIndex.value}-${charIndex}`;
-      letterStates.value.set(
-        key,
-        charIndex < newValue.length
-          ? newValue[charIndex] === char
-            ? "text-primary-paige"
-            : "text-primary-red"
-          : ""
-      );
+  // --- UI helpers: coloring and extra letter display ---
+  const { splitUserInput, getLetterClass, getExtraLetters } = useTypingUI({
+    typedWords,
+    currentWordIndex,
+    userInput,
+    formattedText,
+  });
+
+  // --- Watch for formattedText changes to reset typing state ---
+  watch(
+    formattedText,
+    (newText) => {
+      if (newText?.length) resetTypingState(resetTimer);
+    },
+    { deep: true }
+  );
+
+  // --- Lifecycle: mount/unmount listeners ---
+  onMounted(() => {
+    nextTick(() => {
+      focusInput();
+      inputRef.value?.addEventListener("keydown", handleKeyDown);
     });
+  });
 
-    if (newValue.endsWith(" ")) {
-      typedWords.value[currentWordIndex.value] = typedWord;
-      if (typedWord !== wordObj.word) {
-        incorrectWords.value.add(currentWordIndex.value);
-      }
-      currentWordIndex.value += 1;
-      userInput.value = "";
-    }
+  onUnmounted(() => {
+    inputRef.value?.removeEventListener("keydown", handleKeyDown);
   });
 
   return {
-    story,
-    userInput,
+    // Refs exposed for use in the template or other composables
     inputRef,
-    currentWordIndex,
+    userInput,
     typedWords,
-    incorrectWords,
-    letterStates,
-    formattedText,
+    currentWordIndex,
+    isWordCorrect,
+    splitUserInput,
     getLetterClass,
+    getExtraLetters,
+    focusInput,
+    typingStarted,
+    typingEnded,
+    wpm,
+    time,
+    formattedTime,
+
+    // Helper: resets state and timer
+    resetTypingState: () => resetTypingState(resetTimer),
   };
 }
