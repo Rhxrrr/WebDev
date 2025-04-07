@@ -1,25 +1,29 @@
-import "./config/db.js"; // Import the database connection
-import express from "express";
+// server.js
 import dotenv from "dotenv";
-import cors from "cors"; // Allow frontend to make requests
-import storiesRoutes from "./routes/storiesRoutes.js"; // Import API routes
+import { createServer } from "http";
+import { Server } from "socket.io";
+import app from "./app.js";
+import { registerSocketHandlers } from "./sockets/socketHandler.js";
+import "./config/db.js"; // Connect to DB
 
 dotenv.config();
 
-const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Middleware
-app.use(cors()); // Handle cross-origin requests
-app.use(express.json()); // Parse JSON request bodies
+// Create HTTP server
+const server = createServer(app);
 
-// Routes
-app.use("/api/stories", storiesRoutes); // Mount stories API
-
-app.get("/", (req, res) => {
-  res.send("Server is running...");
+// Attach socket.io
+const io = new Server(server, {
+  cors: {
+    origin: "*", // Change this in prod
+  },
 });
 
-app.listen(PORT, () => {
-  console.log(`🚀 Server running on port ${PORT}`);
+// Register WebSocket handlers
+registerSocketHandlers(io);
+
+// Start server
+server.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
 });
