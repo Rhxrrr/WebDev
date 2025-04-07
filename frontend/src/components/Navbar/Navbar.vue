@@ -1,83 +1,104 @@
 <script setup>
-import { ref } from "vue";
+import { ref, computed, nextTick } from "vue";
+import { useRoute, useRouter } from "vue-router";
 import StoriesSVG from "@media/Stories.vue";
-import LeaderboardSVG from "@media/Leaderboard.vue";
-import CodeSVG from "@media/Code.vue";
 import RaceSVG from "@media/Race.vue";
-import UserSVG from "@media/User.vue";
-import InfinitySVG from "@media/Infinity.vue";
+import GraphSVG from "@media/Graph.vue";
+import TimeSVG from "@media/Time.vue";
+import useGraphToggle from "@composables/useGraphToggle";
 
-// Track loading state for button clicks
+// Graph toggle state and function from composable
+const { toggleGraph, showGraph } = useGraphToggle();
+
+const emit = defineEmits(["update-time"]);
+const router = useRouter();
+const route = useRoute();
+
+const isHome = computed(() => route.path === "/");
 const isLoading = ref(false);
+const selectedTime = ref("15");
 
-/**
- * List of primary text buttons with dynamic logic imports.
- * Each button executes an external function when clicked.
- */
+// Buttons to navigate between Stories and Race
 const textItems = [
   {
     label: "Stories",
     icon: StoriesSVG,
-    action: () => import("@composables/storiesAction.js"),
+    action: async () => {
+      const module = await import("@composables/storiesAction.js");
+      await module.default();
+      await router.push("/");
+      return { default: async () => {} };
+    },
   },
   {
     label: "Race",
     icon: RaceSVG,
-    action: () => import("@composables/raceAction.js"),
-  },
-  {
-    label: "Code",
-    icon: CodeSVG,
-    action: () => import("@composables/codeAction.js"),
+    action: async () => {
+      await router.push("/race");
+      return { default: async () => {} };
+    },
   },
 ];
 
-/**
- * Navigation bar buttons.
- * These buttons currently don't have actions assigned.
- */
+// UI nav icons: Graph and Time
 const navItems = [
-  { label: "Leaderboard", icon: LeaderboardSVG },
-  { label: "Graph", icon: LeaderboardSVG },
-  { label: "Button", icon: LeaderboardSVG },
+  { label: "Graph", icon: GraphSVG },
+  { label: "Time", icon: TimeSVG },
 ];
 
-/**
- * Word length options for selecting typing test difficulty.
- */
-const wordLength = ["50", "100", "150"];
+// Typing durations (word counts)
+const wordLength = ["15", "30", "60", "90"];
 
-/**
- * Handles button clicks and executes the associated action.
- * Prevents multiple clicks using `isLoading`.
- *
- * @param {Object} item - The clicked button item.
- * @param {string} item.label - The label of the button.
- * @param {Function} item.action - The function to dynamically import.
- */
+// Handle click for Stories or Race nav items
 const handleClick = async (item) => {
-  if (isLoading.value) return; // Prevent multiple clicks
-
+  if (isLoading.value) return;
   isLoading.value = true;
   try {
-    const module = await item.action(); // Dynamically import action
-    await module.default(); // Execute the imported function
+    const module = await item.action();
+    await module.default();
   } catch (error) {
     console.error("Error executing action:", error);
   } finally {
-    isLoading.value = false; // Reset loading state
+    isLoading.value = false;
+  }
+};
+
+// Handle selection of typing time
+const handleTimeSelect = async (item) => {
+  selectedTime.value = item;
+  if (!isHome.value) {
+    await router.push("/");
+  }
+  emit("update-time", parseInt(item));
+};
+
+// Handle navigation to graph/time, ensure graph toggles as needed
+const handleNavItemClick = async (label) => {
+  const navigatingToHome = !isHome.value;
+
+  if ((label === "Time" || label === "Graph") && navigatingToHome) {
+    await router.push("/");
+    await nextTick();
+
+    if (label === "Graph" && !showGraph.value) {
+      toggleGraph();
+    }
+  } else if (label === "Graph" && isHome.value) {
+    toggleGraph();
   }
 };
 </script>
 
 <template>
-  <nav class="p-2 bg-secondary-grey flex rounded-lg text-primary-grey">
-    <!-- Text Items (Stories, Race, Code) -->
-    <div class="grid grid-cols-3">
+  <nav
+    class="p-2 relative bg-secondary-grey flex rounded-lg text-primary-grey items-center"
+  >
+    <!-- Text Items: Stories and Race -->
+    <div class="grid grid-cols-2">
       <button
         v-for="item in textItems"
         :key="item.label"
-        class="group hover:text-primary-paige flex items-center justify-center w-full space-x-1"
+        class="group hover:text-primary-paige flex items-center justify-center w-full space-x-2"
         :disabled="isLoading"
         @click="handleClick(item)"
       >
@@ -91,51 +112,70 @@ const handleClick = async (item) => {
       </button>
     </div>
 
-    <!-- Separator -->
+    <!-- Separator between text items and nav items -->
     <div
       class="seperator mx-2 w-[2px] h-full bg-primary-paige rounded-full"
     ></div>
 
-    <!-- Nav Items (Leaderboard, Graph, Button) -->
-    <div class="grid grid-cols-3">
+    <!-- Nav Items: Graph and Time -->
+    <div class="flex justify-between">
       <button
         v-for="item in navItems"
         :key="item.label"
-        class="group hover:text-primary-paige flex items-center justify-center w-full space-x-1"
+        @click="handleNavItemClick(item.label)"
+        class="group flex items-center justify-center space-x-2 px-2 transition-all"
+        :class="[
+          (item.label === 'Time' && isHome) ||
+          (item.label === 'Graph' && showGraph && isHome)
+            ? 'text-primary-paige'
+            : 'text-primary-grey hover:text-primary-paige',
+        ]"
       >
-        <component :is="item.icon" />
+        <component :is="item.icon" class="w-6 h-6" />
         <span class="relative">
           <span>{{ item.label }}</span>
           <span
-            class="absolute left-0 -bottom-0.5 h-0.5 w-0 bg-primary-paige transition-all duration-300 group-hover:w-full"
+            class="absolute left-0 -bottom-0.5 h-0.5 bg-primary-paige transition-all duration-300"
+            :class="[
+              (item.label === 'Time' && isHome) ||
+              (item.label === 'Graph' && showGraph && isHome)
+                ? 'w-full'
+                : 'w-0 group-hover:w-full',
+            ]"
           ></span>
         </span>
       </button>
     </div>
 
-    <!-- Separator -->
+    <!-- Separator between nav items and time options -->
     <div
       class="seperator mx-2 w-[2px] h-full bg-primary-paige rounded-full"
     ></div>
 
     <!-- Word Length Options -->
-    <div class="grid grid-cols-5">
+    <div class="grid grid-cols-4">
       <button
-        class="hover:text-primary-paige flex items-center justify-center w-full mx-2"
         v-for="item in wordLength"
         :key="item"
+        @click="handleTimeSelect(item)"
+        class="group flex items-center justify-center w-full mx-2 px-2 py-1 text-lg transition-all relative"
+        :class="[
+          selectedTime === item && isHome
+            ? 'text-primary-paige'
+            : 'hover:text-primary-paige',
+        ]"
       >
-        {{ item }}
-      </button>
-      <button
-        class="hover:text-primary-paige flex items-center justify-center w-full mx-2"
-      >
-        <InfinitySVG />
-      </button>
-      <button
-        class="hover:text-primary-paige flex items-center justify-center w-full mx-2"
-      >
-        <UserSVG />
+        <span class="relative">
+          <span>{{ item }}</span>
+          <span
+            class="absolute left-0 -bottom-0.5 h-0.5 bg-primary-paige transition-all duration-300"
+            :class="[
+              selectedTime === item && isHome
+                ? 'w-full'
+                : 'w-0 group-hover:w-full',
+            ]"
+          ></span>
+        </span>
       </button>
     </div>
   </nav>
