@@ -22,6 +22,9 @@
   .bg-primary-paige {
     background-color: #d4c9be;
   }
+  .hover\:bg-primary-red:hover {
+    background-color: #ff4056;
+  }
 }
 
 .fade-text {
@@ -65,4 +68,22 @@
 }
 button {
   cursor: pointer !important;
+}
+
+.scroll-hidden {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  transition: all 0.3s ease-in-out;
+}
+.scroll-hidden::-webkit-scrollbar {
+  display: none;
+}
+
+.scroll-locked {
+  overflow: hidden !important; /* This blocks all user scrolling */
+  pointer-events: none; /* Prevents any mouse/touch interaction */
+  position: relative;
+}
+.scroll-locked > * {
+  pointer-events: auto; /* Allows child elements to still function */
 }
