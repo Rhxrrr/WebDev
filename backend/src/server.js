@@ -5,7 +5,10 @@ import { Server } from "socket.io";
 import app from "./app.js";
 import { registerSocketHandlers } from "./sockets/socketHandler.js";
 import "./config/db.js"; // Connect to DB
+import leaderboardRoutes from "./routes/leaderboardRoutes.js";
 
+
+app.use("/api/leaderboard", leaderboardRoutes);
 dotenv.config();
 
 const PORT = process.env.PORT || 3000;

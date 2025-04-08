@@ -7,6 +7,7 @@ import GraphSVG from "@media/Graph.vue";
 import TimeSVG from "@media/Time.vue";
 import useGraphToggle from "@composables/useGraphToggle";
 
+
 // Graph toggle state and function from composable
 const { toggleGraph, showGraph } = useGraphToggle();
 
@@ -35,6 +36,14 @@ const textItems = [
     icon: RaceSVG,
     action: async () => {
       await router.push("/race");
+      return { default: async () => {} };
+    },
+  },
+  {
+    label: "Leaderboard",
+    icon: TimeSVG, // temporary icon – you can change this to a trophy SVG later
+    action: async () => {
+      await router.push("/leaderboard");
       return { default: async () => {} };
     },
   },
@@ -102,7 +111,9 @@ const handleNavItemClick = async (label) => {
         :disabled="isLoading"
         @click="handleClick(item)"
       >
-        <component :is="item.icon" />
+        <component :is="item.icon" 
+        class="w-5 h-5"
+        />
         <span class="relative">
           <span>{{ item.label }}</span>
           <span
