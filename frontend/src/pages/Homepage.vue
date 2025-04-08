@@ -123,12 +123,12 @@ const handleTimeChange = async (newTime) => {
 
 <template>
   <div
-    class="h-screen w-screen bg-primary-grey p-4 flex items-center flex-col justify-start"
+    class="h-screen w-screen bg-primary-grey dark:bg-primary-grey p-4 flex items-center flex-col justify-start"
     @click="focusInput"
   >
     <div class="w-[70%] sm:w-[100%] flex items-center justify-center mt-6">
       <router-link to="/" class="w-26 relative mr-6">
-        <LogoSVG class="w-full h-auto cursor-pointer text-primary-paige" />
+        <LogoSVG class="w-full h-auto cursor-pointer text-primary-paige dark:text-primary-paige" />
       </router-link>
       <div class="flex">
         <Navbar :selected-time="selectedTime" @update-time="handleTimeChange" />
@@ -136,7 +136,7 @@ const handleTimeChange = async (newTime) => {
     </div>
 
     <div
-      class="flex flex-col w-[70%] flex-1 items-center justify-center text-primary-grey text-4xl font-semibold relative overflow-hidden"
+      class="flex flex-col w-[70%] flex-1 items-center justify-center text-primary-grey dark:text-primary-grey text-4xl font-semibold relative overflow-hidden"
     >
       <TypingGraph
         v-if="showGraph"

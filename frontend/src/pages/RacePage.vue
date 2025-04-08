@@ -375,12 +375,12 @@ watch([wpm, progress], () => {
 
 <template>
   <div
-    class="h-screen w-screen bg-primary-grey p-4 flex items-center flex-col justify-start"
+    class="h-screen w-screen bg-primary-grey dark:bg-primary-grey p-4 flex items-center flex-col justify-start"
     @click="focusInput"
   >
     <div class="w-[70%] sm:w-[90%] flex items-center justify-center mt-6">
       <router-link to="/" class="w-26 relative mr-6">
-        <LogoSVG class="w-full h-auto cursor-pointer text-primary-paige" />
+        <LogoSVG class="w-full h-auto cursor-pointer text-primary-paige dark:text-primary-paige" />
       </router-link>
       <div class="flex">
         <Navbar />
@@ -393,7 +393,7 @@ watch([wpm, progress], () => {
       @enterRace="handleEnterRace"
     />
     <div
-      class="flex flex-col w-[70%] flex-1 items-center justify-center text-primary-grey text-4xl font-semibold relative overflow-hidden"
+      class="flex flex-col w-[70%] flex-1 items-center justify-center text-primary-grey dark:text-primary-grey text-4xl font-semibold relative overflow-hidden"
     >
       <TextNavRace :game="game" :accuracy-count="accuracyCount" :wpm="wpm" />
 
@@ -422,7 +422,7 @@ watch([wpm, progress], () => {
           >
             {{ char }}
           </span>
-          <span v-if="getExtraLetters(wordIndex)" class="text-primary-red">
+          <span v-if="getExtraLetters(wordIndex)" class="text-primary-red dark:text-primary-red">
             {{ getExtraLetters(wordIndex) }}
           </span>
         </div>

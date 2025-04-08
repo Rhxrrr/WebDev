@@ -1,29 +1,69 @@
 @import "tailwindcss";
 
 @layer utilities {
+  /* Light Theme */
+  :root {
+    --primary-grey: #ffffff;
+    --secondary-grey: #dfdfdf;
+
+    --primary-paige: #7f7973;
+
+    --primary-red: #ff4056;  
+
+    --primary-text: #51555a;    
+    --secondary-text: #2c2e30;   
+
+    --bg-primary-beige: #d4c9be;
+    --hover-bg-primary-red: #ff4056;
+
+    --text-primary-paige-hover: #a09991;
+  }
+
+  /* Dark Theme */
+  :root.dark {
+    --primary-grey: #2c2e30;
+    --secondary-grey: #27292b; 
+
+    --primary-paige: #d4c9be;
+
+    --primary-red: #ff4056;
+
+    --primary-text: #b6ada3;
+    --secondary-text: #d4c9be;
+
+    --bg-primary-beige: #d4c9be;
+    --hover-bg-primary-red: #ff4056;
+
+    --text-primary-paige-hover: #989088;
+  }
+
+  /* Utility classes */
   .bg-primary-grey {
-    background-color: #2c2e30;
+    background-color: var(--primary-grey);
   }
   .bg-secondary-grey {
-    background-color: #27292b;
+    background-color: var(--secondary-grey);
   }
   .text-primary-grey {
-    color: #595b5e;
+    color: var(--primary-text);
+  }
+  
+  /* Accent colors (same for both themes) */
+  .text-primary-paige {
+    color: var(--primary-paige);
   }
   .hover\:text-primary-paige:hover {
-    color: #d4c9be;
-  }
-  .text-primary-paige {
-    color: #d4c9be;
-  }
-  .text-primary-red {
-    color: #ff4056;
+    color: var(--text-primary-paige-hover);
   }
   .bg-primary-paige {
-    background-color: #d4c9be;
+    color: var(--bg-primary-beige);
+  }
+  
+  .text-primary-red {
+    color: var(--primary-red);
   }
   .hover\:bg-primary-red:hover {
-    background-color: #ff4056;
+    color: var(--hover-bg-primary-red);
   }
 }
 

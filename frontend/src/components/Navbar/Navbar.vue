@@ -6,6 +6,10 @@ import RaceSVG from "@media/Race.vue";
 import GraphSVG from "@media/Graph.vue";
 import TimeSVG from "@media/Time.vue";
 import useGraphToggle from "@composables/useGraphToggle";
+import { darkMode, useTheme } from "@/composables/useTheme";
+
+// Use shared theme state
+const { toggleTheme } = useTheme()
 
 // Graph toggle state and function from composable
 const { toggleGraph, showGraph } = useGraphToggle();
@@ -98,7 +102,7 @@ const handleNavItemClick = async (label) => {
       <button
         v-for="item in textItems"
         :key="item.label"
-        class="group hover:text-primary-paige flex items-center justify-center w-full space-x-2"
+        class="group flex items-center justify-center w-full space-x-2 hover:text-primary-paige dark:hover:text-primary-paige"
         :disabled="isLoading"
         @click="handleClick(item)"
       >
@@ -106,18 +110,16 @@ const handleNavItemClick = async (label) => {
         <span class="relative">
           <span>{{ item.label }}</span>
           <span
-            class="absolute left-0 -bottom-0.5 h-0.5 w-0 bg-primary-paige transition-all duration-300 group-hover:w-full"
+            class="absolute left-0 -bottom-0.5 h-0.5 w-0 transition-all duration-300 bg-primary-paige dark:bg-primary-paige group-hover:w-full"
           ></span>
         </span>
       </button>
     </div>
 
-    <!-- Separator between text items and nav items -->
-    <div
-      class="seperator mx-2 w-[2px] h-full bg-primary-paige rounded-full"
-    ></div>
+    <!-- Separator -->
+    <div class="seperator mx-2 w-[2px] h-full bg-primary-paige dark:bg-primary-paige rounded-full"></div>
 
-    <!-- Nav Items: Graph and Time -->
+    <!-- Nav Items -->
     <div class="flex justify-between">
       <button
         v-for="item in navItems"
@@ -125,32 +127,28 @@ const handleNavItemClick = async (label) => {
         @click="handleNavItemClick(item.label)"
         class="group flex items-center justify-center space-x-2 px-2 transition-all"
         :class="[
-          (item.label === 'Time' && isHome) ||
-          (item.label === 'Graph' && showGraph && isHome)
-            ? 'text-primary-paige'
-            : 'text-primary-grey hover:text-primary-paige',
+          (item.label === 'Time' && isHome) || (item.label === 'Graph' && showGraph && isHome)
+            ? 'text-primary-paige dark:text-primary-paige'
+            : 'text-primary-grey hover:text-primary-paige dark:text-primary-grey dark:hover:text-primary-paige'
         ]"
       >
         <component :is="item.icon" class="w-6 h-6" />
         <span class="relative">
           <span>{{ item.label }}</span>
           <span
-            class="absolute left-0 -bottom-0.5 h-0.5 bg-primary-paige transition-all duration-300"
+            class="absolute left-0 -bottom-0.5 h-0.5 transition-all duration-300 bg-primary-paige"
             :class="[
-              (item.label === 'Time' && isHome) ||
-              (item.label === 'Graph' && showGraph && isHome)
+              (item.label === 'Time' && isHome) || (item.label === 'Graph' && showGraph && isHome)
                 ? 'w-full'
-                : 'w-0 group-hover:w-full',
+                : 'w-0 group-hover:w-full'
             ]"
           ></span>
         </span>
       </button>
     </div>
 
-    <!-- Separator between nav items and time options -->
-    <div
-      class="seperator mx-2 w-[2px] h-full bg-primary-paige rounded-full"
-    ></div>
+    <!-- Separator -->
+    <div class="seperator mx-2 w-[2px] h-full bg-primary-paige rounded-full"></div>
 
     <!-- Word Length Options -->
     <div class="grid grid-cols-4">
@@ -161,22 +159,36 @@ const handleNavItemClick = async (label) => {
         class="group flex items-center justify-center w-full mx-2 px-2 py-1 text-lg transition-all relative"
         :class="[
           selectedTime === item && isHome
-            ? 'text-primary-paige'
-            : 'hover:text-primary-paige',
+            ? 'text-primary-paige dark:text-primary-paige'
+            : 'hover:text-primary-paige dark:hover:text-primary-paige'
         ]"
       >
         <span class="relative">
           <span>{{ item }}</span>
           <span
-            class="absolute left-0 -bottom-0.5 h-0.5 bg-primary-paige transition-all duration-300"
+            class="absolute left-0 -bottom-0.5 h-0.5 transition-all duration-300 bg-primary-paige"
             :class="[
               selectedTime === item && isHome
                 ? 'w-full'
-                : 'w-0 group-hover:w-full',
+                : 'w-0 group-hover:w-full'
             ]"
           ></span>
         </span>
       </button>
     </div>
+
+    <!-- Separator -->
+    <div class="mx-2 w-[2px] h-full bg-primary-paige rounded-full"></div>
+
+    <!-- Theme Toggle -->
+    <button
+      @click="toggleTheme"
+      class="ml-2 p-2 rounded-full hover:bg-primary-grey dark:hover:bg-primary-grey transition-colors"
+      :aria-label="darkMode ? 'Switch to light mode' : 'Switch to dark mode'"
+    >
+      <span class="text-primary-grey dark:text-primary-grey text-xl">
+        {{ darkMode ? '☀️' : '🌙' }}
+      </span>
+    </button>
   </nav>
 </template>
