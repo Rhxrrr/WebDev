@@ -29,7 +29,7 @@ const formattedTime = computed(() => {
     class="p-2 justify-between bg-secondary-grey dark:bg-secondary-grey w-full flex rounded-lg text-primary-grey dark:text-primary-grey text-lg"
   >
     <!-- Game stats display -->
-    <div class="text-primary-paige dark:text-primary-paige text-center grid grid-cols-3">
+    <div class="text-primary-grey dark:text-primary-grey text-center grid grid-cols-3">
       <span>Time: {{ formattedTime }}</span>
       <span>WPM: {{ props.wpm }}</span>
       <span>Accuracy: {{ props.accuracyCount }}%</span>
@@ -37,7 +37,7 @@ const formattedTime = computed(() => {
 
     <!-- Language toggle button -->
     <button
-      class="hover:text-primary-paige dark:hover:text-primary-paige mx-2 flex items-center justify-center"
+      class="hover:text-primary-grey dark:hover:text-primary-grey mx-2 flex items-center justify-center"
     >
       <GlobeSVG />
       <span class="ml-2">English</span>

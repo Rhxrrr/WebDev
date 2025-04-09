@@ -128,7 +128,7 @@ const handleTimeChange = async (newTime) => {
   >
     <div class="w-[70%] sm:w-[100%] flex items-center justify-center mt-6">
       <router-link to="/" class="w-26 relative mr-6">
-        <LogoSVG class="w-full h-auto cursor-pointer text-primary-paige dark:text-primary-paige" />
+        <LogoSVG class="w-full h-auto cursor-pointer text-primary-grey dark:text-primary-grey" />
       </router-link>
       <div class="flex">
         <Navbar :selected-time="selectedTime" @update-time="handleTimeChange" />

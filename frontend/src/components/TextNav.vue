@@ -44,7 +44,7 @@ const emit = defineEmits(["new-test"]);
   >
     <!-- Left: Typing stats -->
     <div
-      class="text-primary-paige dark:text-primary-paige text-center grid grid-cols-3 gap-4 items-center"
+      class="text-primary-grey dark:text-primary-grey text-center grid grid-cols-3 gap-4 items-center"
     >
       <span>Time: {{ props.formattedTime }}</span>
       <span>WPM: {{ props.wpm }}</span>
@@ -56,14 +56,16 @@ const emit = defineEmits(["new-test"]);
       <button
         v-if="typingEnded"
         @click="emit('new-test')"
-        class="text-lg px-3 py-1 border border-primary-paige text-primary-paige dark:text-primary-paige rounded hover:bg-primary-paige dark:hover:bg-primary-paige hover:text-white transition-all"
+        class="text-lg px-3 py-1 border border-primary-paige text-primary-grey dark:text-primary-grey rounded hover:text-primary-paige dark:hover:text-primary-paige hover:text-white transition-all"
       >
         New Story
       </button>
 
-      <div class="flex items-center hover:text-primary-paige dark:hover:text-primary-paige cursor-pointer">
-        <GlobeSVG />
-        <span class="ml-2">English</span>
+      <div>
+        <span class="flex items-center hover:text-primary-paige dark:hover:text-primary-paige cursor-pointer">
+          <GlobeSVG />
+          English
+        </span>
       </div>
     </div>
   </nav>

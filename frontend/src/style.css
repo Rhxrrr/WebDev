@@ -6,17 +6,19 @@
     --primary-grey: #ffffff;
     --secondary-grey: #dfdfdf;
 
-    --primary-paige: #7f7973;
+    --primary-paige: #000000;
 
     --primary-red: #ff4056;  
 
     --primary-text: #51555a;    
     --secondary-text: #2c2e30;   
 
-    --bg-primary-beige: #d4c9be;
+    --bg-primary-beige: #000000;
     --hover-bg-primary-red: #ff4056;
 
-    --text-primary-paige-hover: #a09991;
+    --text-primary-paige-hover: #000000;
+
+    --caret-color: #125ac600;
   }
 
   /* Dark Theme */
@@ -24,17 +26,19 @@
     --primary-grey: #2c2e30;
     --secondary-grey: #27292b; 
 
-    --primary-paige: #d4c9be;
+    --primary-paige: #ffffff;
 
     --primary-red: #ff4056;
 
-    --primary-text: #b6ada3;
-    --secondary-text: #d4c9be;
+    --primary-text: #bbbbbb;
+    --secondary-text: #514c46;
 
-    --bg-primary-beige: #d4c9be;
+    --bg-primary-beige: #ffffff;
     --hover-bg-primary-red: #ff4056;
 
-    --text-primary-paige-hover: #989088;
+    --text-primary-paige-hover: #ffffff;
+
+    --caret-color: #125ac600;
   }
 
   /* Utility classes */
@@ -55,10 +59,14 @@
   .hover\:text-primary-paige:hover {
     color: var(--text-primary-paige-hover);
   }
-  .bg-primary-paige {
-    color: var(--bg-primary-beige);
-  }
   
+  .bg-primary-paige {
+    background-color: var(--bg-primary-beige);
+  }
+
+  .hover\:bg-primary-paige:hover {
+    background-color: var(--bg-primary-beige);
+  }
   .text-primary-red {
     color: var(--primary-red);
   }

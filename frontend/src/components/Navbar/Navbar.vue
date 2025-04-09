@@ -95,7 +95,7 @@ const handleNavItemClick = async (label) => {
 
 <template>
   <nav
-    class="p-2 relative bg-secondary-grey flex rounded-lg text-primary-grey items-center"
+    class="p-2 relative bg-secondary-grey dark:bg-secondary-grey flex rounded-lg text-primary-grey dark:text-primary-grey items-center"
   >
     <!-- Text Items: Stories and Race -->
     <div class="grid grid-cols-2">
@@ -117,8 +117,10 @@ const handleNavItemClick = async (label) => {
     </div>
 
     <!-- Separator -->
-    <div class="seperator mx-2 w-[2px] h-full bg-primary-paige dark:bg-primary-paige rounded-full"></div>
-
+    <div
+      class="seperator mx-2 w-[2px] h-[30px] bg-primary-paige dark:text-primary-paige rounded-full"
+    ></div>
+    
     <!-- Nav Items -->
     <div class="flex justify-between">
       <button
@@ -148,7 +150,7 @@ const handleNavItemClick = async (label) => {
     </div>
 
     <!-- Separator -->
-    <div class="seperator mx-2 w-[2px] h-full bg-primary-paige rounded-full"></div>
+    <div class="seperator mx-2 w-[2px] h-[30px] bg-primary-paige dark:text-primary-paige rounded-full"></div>
 
     <!-- Word Length Options -->
     <div class="grid grid-cols-4">
@@ -178,15 +180,15 @@ const handleNavItemClick = async (label) => {
     </div>
 
     <!-- Separator -->
-    <div class="mx-2 w-[2px] h-full bg-primary-paige rounded-full"></div>
+    <div class="mx-2 w-[2px] h-[30px] bg-primary-paige dark:bg-primary-paige rounded-full"></div>
 
     <!-- Theme Toggle -->
     <button
+      class="ml-2 p-2 rounded-full bg-secondary-grey hover:bg-primary-paige dark:bg-secondary-grey dark:hover:bg-primary-paige"
       @click="toggleTheme"
-      class="ml-2 p-2 rounded-full hover:bg-primary-grey dark:hover:bg-primary-grey transition-colors"
       :aria-label="darkMode ? 'Switch to light mode' : 'Switch to dark mode'"
     >
-      <span class="text-primary-grey dark:text-primary-grey text-xl">
+      <span class="text-xl">
         {{ darkMode ? '☀️' : '🌙' }}
       </span>
     </button>
