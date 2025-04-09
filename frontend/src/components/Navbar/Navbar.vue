@@ -4,12 +4,14 @@ import { useRoute, useRouter } from "vue-router";
 import StoriesSVG from "@media/Stories.vue";
 import RaceSVG from "@media/Race.vue";
 import GraphSVG from "@media/Graph.vue";
-import TimeSVG from "@media/Time.vue";
+import TimeSVG from "@/icons/Time.vue";
+import LeaderboardSVG from "@/icons/Leaderboard.vue";
 import useGraphToggle from "@composables/useGraphToggle";
 import { darkMode, useTheme } from "@/composables/useTheme";
 
 // Use shared theme state
 const { toggleTheme } = useTheme()
+
 
 // Graph toggle state and function from composable
 const { toggleGraph, showGraph } = useGraphToggle();
@@ -41,6 +43,14 @@ const textItems = [
     icon: RaceSVG,
     action: async () => {
       await router.push("/race");
+      return { default: async () => {} };
+    },
+  },
+  {
+    label: "Leaderboard",
+    icon: LeaderboardSVG, // temporary icon – you can change this to a trophy SVG later
+    action: async () => {
+      await router.push("/leaderboard");
       return { default: async () => {} };
     },
   },
@@ -114,7 +124,7 @@ const handleTimeSelect = async (item) => {
     <!-- Menu Items Container -->
     <div :class="['flex flex-col lg:flex-row w-full', isMenuOpen ? 'flex' : 'hidden', 'lg:flex']">
     <!-- Text Items: Stories and Race -->
-    <div class="grid grid-cols-2">
+    <div class="grid grid-cols-3 gap-4">
       <button
         v-for="item in textItems"
         :key="item.label"
@@ -122,7 +132,9 @@ const handleTimeSelect = async (item) => {
         :disabled="isLoading"
         @click="handleClick(item)"
       >
-        <component :is="item.icon" />
+        <component :is="item.icon" 
+        class="w-5 h-5"
+        />
         <span class="relative">
           <span>{{ item.label }}</span>
           <span

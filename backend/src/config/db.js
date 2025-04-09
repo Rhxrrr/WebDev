@@ -1,9 +1,11 @@
 import pkg from "pg";
 import dotenv from "dotenv";
 
-dotenv.config();
+dotenv.config({path:"C:\\Users\\heman\\webdev\\finalproj\\WebDev\\backend\\.env"});
 
 const { Pool } = pkg;
+console.log("DATABASE_URL from .env:", process.env.DATABASE_URL);
+
 
 // create a new PostgreSQL connection pool using the DATABASE_URL
 const pool = new Pool({

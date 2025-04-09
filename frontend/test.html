@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Leaderboard Test</title>
+  </head>
+  <body>
+    <h1>Testing Leaderboard API</h1>
+    <button onclick="submitScore()">Submit Sample Score</button>
+    <pre id="output"></pre>
+
+    <script>
+      function submitScore() {
+        fetch("http://localhost:3000/api/leaderboard/submit", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            username: "FastTyper",
+            wpm: 91,
+            accuracy: 95.8,
+            time_taken: 60.1
+          })
+        })
+          .then(res => res.json())
+          .then(data => {
+            console.log("✅ Saved:", data);
+            document.getElementById("output").textContent =
+              "✅ Score Saved:\n" + JSON.stringify(data, null, 2);
+          })
+          .catch(err => {
+            console.error("❌ Error:", err);
+            document.getElementById("output").textContent =
+              "❌ Error:\n" + err.message;
+          });
+      }
+    </script>
+  </body>
+</html>
