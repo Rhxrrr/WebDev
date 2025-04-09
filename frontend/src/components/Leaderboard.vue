@@ -20,7 +20,7 @@ onMounted(async () => {
     <!-- Navbar + Logo -->
     <div class="w-[70%] sm:w-[100%] flex items-center justify-center mt-6">
       <router-link to="/" class="w-26 relative mr-6">
-        <LogoSVG class="w-full h-auto cursor-pointer text-primary-paige" />
+        <LogoSVG class="w-[80%] h-auto lg:w-full cursor-pointer text-primary-paige dark:text-primary-paige" />
       </router-link>
       <div class="flex">
         <Navbar />
@@ -31,19 +31,19 @@ onMounted(async () => {
     <!-- Leaderboard Section -->
     <div class="grid grid-cols-3 gap-4 p-8 w-[70%] sm:w-full">
       <!-- Fastest Box -->
-      <div class="bg-secondary-grey text-primary-grey font-bold p-4 rounded-lg shadow-md">
-        <div class="bg-primary-grey text-primary-grey font-bold p-2 mb-4 rounded">
+      <div class="bg-secondary-grey text-primary-paige font-bold p-4 rounded-lg shadow-md">
+        <div class="bg-primary-grey text-primary-paige font-bold p-2 mb-4 rounded">
           Fastest: wpm = {{ scores[0]?.wpm || '--' }}
         </div>
         <div>Time in secs: {{ scores[0]?.time_taken || '--' }}</div>
       </div>
 
       <!-- Leaderboard Table -->
-      <div class="col-span-2 bg-secondary-grey text-primary-grey p-6 rounded-lg shadow-lg">
+      <div class="col-span-2 bg-secondary-grey text-primary-paige p-6 rounded-lg shadow-lg">
         <h1 class="text-center text-3xl font-bold mb-6">LeaderBoard</h1>
 
         <table class="w-full table-auto border-collapse text-left">
-          <thead class="text-sm uppercase text-primary-gray bg-secondary-grey border-b border-gray-600">
+          <thead class="text-sm uppercase text-primary-paige bg-secondary-grey border-b border-gray-600">
             <tr>
               <th class="py-2">#</th>
               <th class="py-2">name</th>
@@ -58,7 +58,7 @@ onMounted(async () => {
               v-for="(entry, i) in scores"
               :key="i"
               :class="[
-                i < 3 ? 'bg-secondary-grey text-primary-grey font-semibold' : 'bg-secondary-grey',
+                i < 3 ? 'bg-secondary-grey text-primary-paige font-semibold' : 'bg-secondary-grey',
                 'border-b border-gray-700 hover:bg-primary-paige rounded-md',
               ]"
             >
