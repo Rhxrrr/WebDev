@@ -4,7 +4,8 @@ import { useRoute, useRouter } from "vue-router";
 import StoriesSVG from "@media/Stories.vue";
 import RaceSVG from "@media/Race.vue";
 import GraphSVG from "@media/Graph.vue";
-import TimeSVG from "@media/Time.vue";
+import TimeSVG from "@/icons/Time.vue";
+import LeaderboardSVG from "@/icons/Leaderboard.vue";
 import useGraphToggle from "@composables/useGraphToggle";
 import { darkMode, useTheme } from "@/composables/useTheme";
 
@@ -45,7 +46,7 @@ const textItems = [
   },
   {
     label: "Leaderboard",
-    icon: TimeSVG, // temporary icon – you can change this to a trophy SVG later
+    icon: LeaderboardSVG, // temporary icon – you can change this to a trophy SVG later
     action: async () => {
       await router.push("/leaderboard");
       return { default: async () => {} };
@@ -107,7 +108,7 @@ const handleNavItemClick = async (label) => {
     class="p-2 relative bg-secondary-grey dark:bg-secondary-grey flex rounded-lg text-primary-grey dark:text-primary-grey items-center"
   >
     <!-- Text Items: Stories and Race -->
-    <div class="grid grid-cols-2">
+    <div class="grid grid-cols-3 gap-4">
       <button
         v-for="item in textItems"
         :key="item.label"
