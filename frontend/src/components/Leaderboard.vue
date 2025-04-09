@@ -16,7 +16,7 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div class="bg-primary-grey min-h-screen w-screen p-4 flex flex-col items-center text-white font-mono">
+  <div class="bg-primary-grey min-h-screen w-screen p-4 flex flex-col items-center text-white">
     <!-- Navbar + Logo -->
     <div class="w-[70%] sm:w-[100%] flex items-center justify-center mt-6">
       <router-link to="/" class="w-26 relative mr-6">
@@ -27,14 +27,6 @@ onMounted(async () => {
       </div>
     </div>
 
-        <div class="w-[70%] mt-4 flex justify-end">
-      <router-link
-        to="/"
-        class="bg-yellow-400 text-black px-4 py-2 rounded hover:bg-yellow-300 font-semibold transition"
-      >
-        ⬅ Back to Home
-      </router-link>
-    </div>
 
     <!-- Leaderboard Section -->
     <div class="grid grid-cols-3 gap-4 p-8 w-[70%] sm:w-full">

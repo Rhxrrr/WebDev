@@ -1,7 +1,7 @@
 import pkg from "pg";
 import dotenv from "dotenv";
 
-dotenv.config({path:"C:\\Users\\heman\\webdev\\finalproj\\WebDev\\backend\\.env"});
+dotenv.config();
 
 const { Pool } = pkg;
 console.log("DATABASE_URL from .env:", process.env.DATABASE_URL);
