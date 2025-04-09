@@ -3,22 +3,20 @@
 @layer utilities {
   /* Light Theme */
   :root {
-    --primary-grey: #ffffff;
-    --secondary-grey: #dfdfdf;
+    --primary-grey: #e4ddd3;
+    --secondary-grey: #d4c9be;
 
-    --primary-paige: #000000;
+    --primary-paige: #2c2e30;
 
     --primary-red: #ff4056;  
 
     --primary-text: #51555a;    
     --secondary-text: #2c2e30;   
 
-    --bg-primary-beige: #000000;
+    --bg-primary-beige: #51555a;
     --hover-bg-primary-red: #ff4056;
 
-    --text-primary-paige-hover: #000000;
-
-    --caret-color: #125ac600;
+    --text-primary-paige-hover: #2c2e30;
   }
 
   /* Dark Theme */
@@ -26,19 +24,17 @@
     --primary-grey: #2c2e30;
     --secondary-grey: #27292b; 
 
-    --primary-paige: #ffffff;
+    --primary-paige: #e4ddd3;
 
     --primary-red: #ff4056;
 
-    --primary-text: #bbbbbb;
+    --primary-text: #d4c9be;
     --secondary-text: #514c46;
 
-    --bg-primary-beige: #ffffff;
+    --bg-primary-beige: #d4c9be;
     --hover-bg-primary-red: #ff4056;
 
-    --text-primary-paige-hover: #ffffff;
-
-    --caret-color: #125ac600;
+    --text-primary-paige-hover: #e4ddd3;
   }
 
   /* Utility classes */

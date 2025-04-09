@@ -146,7 +146,7 @@ const handleTimeSelect = async (item) => {
 
     <!-- Separator -->
     <div
-      class="seperator mx-2 w-[2px] h-[30px] bg-primary-paige dark:text-primary-paige rounded-full"
+      class="seperator mx-2 w-[2px] flex-grow bg-primary-paige dark:text-primary-paige rounded-full"
     ></div>
     
     <!-- Nav Items -->
@@ -178,7 +178,7 @@ const handleTimeSelect = async (item) => {
     </div>
 
     <!-- Separator -->
-    <div class="seperator mx-2 w-[2px] h-[30px] bg-primary-paige dark:text-primary-paige rounded-full"></div>
+    <div class="seperator mx-2 w-[2px] flex-grow bg-primary-paige dark:text-primary-paige rounded-full"></div>
 
     <!-- Word Length Options -->
     <div class="grid grid-cols-4">
@@ -208,11 +208,10 @@ const handleTimeSelect = async (item) => {
     </div>
 
     <!-- Separator -->
-    <div class="mx-2 w-[2px] h-[30px] bg-primary-paige dark:bg-primary-paige rounded-full"></div>
-
+    <div class="mx-2 w-[2px] flex-grow bg-primary-paige dark:bg-primary-paige rounded-full"></div>
     <!-- Theme Toggle -->
     <button
-      class="ml-2 p-2 rounded-full bg-secondary-grey hover:bg-primary-paige dark:bg-secondary-grey dark:hover:bg-primary-paige"
+      class="ml-2 p-2 rounded-full bg-secondary-grey hover:bg-primary-paige dark:bg-secondary-grey dark:hover:bg-primary-paige flex items-center"
       @click="toggleTheme"
       :aria-label="darkMode ? 'Switch to light mode' : 'Switch to dark mode'"
     >
@@ -221,7 +220,6 @@ const handleTimeSelect = async (item) => {
       </span>
     </button>
     </div>
-  
   </nav>
 
   <!-- Overlay -->
