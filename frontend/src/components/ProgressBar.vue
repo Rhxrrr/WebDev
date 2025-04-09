@@ -62,6 +62,7 @@ function getOrdinalSuffix(n) {
 const emit = defineEmits(["exitRace", "enterRace"]);
 </script>
 <template>
+  <br>
   <!-- Join button shown when player is not in race -->
   <button
     v-if="!game.inGame"
@@ -72,7 +73,7 @@ const emit = defineEmits(["exitRace", "enterRace"]);
   </button>
   <!-- Race panel shown when player is in race -->
   <div
-    class="w-[45%] p-2 flex items-center flex-col justify-center text-primary-paige dark:text-primary-paige"
+    class="lg:w-[45%] sm:w-[90%] p-2 flex items-center flex-col justify-center text-primary-paige dark:text-primary-paige"
     v-if="game.inGame"
   >
     <div v-if="!game">

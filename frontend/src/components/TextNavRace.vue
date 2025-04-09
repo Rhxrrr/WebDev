@@ -26,21 +26,33 @@ const formattedTime = computed(() => {
 
 <template>
   <nav
-    class="p-2 justify-between bg-secondary-grey dark:bg-secondary-grey w-full flex rounded-lg text-primary-grey dark:text-primary-grey text-lg"
+    class="p-2 justify-between bg-secondary-grey dark:bg-secondary-grey w-full flex flex-wrap rounded-lg text-primary-grey dark:text-primary-grey text-sm sm:text-lg"
   >
-    <!-- Game stats display -->
-    <div class="text-primary-grey dark:text-primary-grey text-center grid grid-cols-3">
-      <span>Time: {{ formattedTime }}</span>
+    <!-- Left: Typing stats -->
+    <div
+      class="w-full sm:w-auto flex justify-center sm:grid sm:grid-cols-3 gap-4 items-center mb-2 sm:mb-0"
+    >
+      <span>Time: {{ props.formattedTime }}</span>
       <span>WPM: {{ props.wpm }}</span>
       <span>Accuracy: {{ props.accuracyCount }}%</span>
     </div>
 
-    <!-- Language toggle button -->
-    <button
-      class="hover:text-primary-grey dark:hover:text-primary-grey mx-2 flex items-center justify-center"
-    >
-      <GlobeSVG />
-      <span class="ml-2">English</span>
-    </button>
+    <!-- Right: Actions -->
+    <div class="w-full sm:w-auto flex justify-center sm:justify-end items-center gap-4">
+      <button
+        v-if="typingEnded"
+        @click="emit('new-test')"
+        class="text-sm sm:text-lg px-3 py-1 border border-primary-paige text-primary-grey dark:text-primary-grey rounded hover:text-primary-paige dark:hover:text-primary-paige hover:text-white transition-all"
+      >
+        New Story
+      </button>
+
+      <div>
+        <span class="flex items-center hover:text-primary-paige dark:hover:text-primary-paige cursor-pointer">
+          <GlobeSVG class="w-4 h-4 sm:w-5 sm:h-5 mr-1" />
+          <span class="text-sm sm:text-base">English</span>
+        </span>
+      </div>
+    </div>
   </nav>
 </template>

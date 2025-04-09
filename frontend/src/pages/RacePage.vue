@@ -380,7 +380,7 @@ watch([wpm, progress], () => {
   >
     <div class="w-[70%] sm:w-[90%] flex items-center justify-center mt-6">
       <router-link to="/" class="w-26 relative mr-6">
-        <LogoSVG class="w-full h-auto cursor-pointer text-primary-paige dark:text-primary-paige" />
+        <LogoSVG class="w-[80%] h-auto lg:w-full cursor-pointer text-primary-grey dark:text-primary-grey" />
       </router-link>
       <div class="flex">
         <Navbar />
