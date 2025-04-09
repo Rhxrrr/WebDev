@@ -7,7 +7,7 @@
     <div
       v-for="(wordObj, wordIndex) in formattedText"
       :key="wordIndex"
-      class="word m-[0.3rem]"
+      class="word m-[0.3rem] text-lg sm:text-3xl"
       :ref="(el) => (wordRefs[wordIndex] = el)"
       :class="{
         typed:
@@ -27,7 +27,7 @@
         {{ char }}
       </span>
       <!-- Render any extra letters typed beyond the actual word -->
-      <span v-if="getExtraLetters(wordIndex)" class="text-primary-red dark:text-primary-red">
+      <span v-if="getExtraLetters(wordIndex)" class="text-primary-red dark:text-primary-red text-lg sm:text-3xl">
         {{ getExtraLetters(wordIndex) }}
       </span>
     </div>

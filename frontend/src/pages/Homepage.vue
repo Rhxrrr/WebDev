@@ -126,12 +126,12 @@ const handleTimeChange = async (newTime) => {
     class="h-screen w-screen bg-primary-grey dark:bg-primary-grey p-4 flex items-center flex-col justify-start"
     @click="focusInput"
   >
-    <div class="w-[70%] sm:w-[100%] flex items-center justify-center mt-6">
-      <router-link to="/" class="w-26 relative mr-6">
+    <div class="w-[85%] lg:w-[100%] flex items-center justify-center mt-6">
+      <router-link to="/" class="w-26 relative mr-auto lg:mr-5">
         <LogoSVG class="w-[80%] h-auto lg:w-full cursor-pointer text-primary-grey dark:text-primary-grey" />
       </router-link>
-      <div class="flex">
-        <Navbar :selected-time="selectedTime" @update-time="handleTimeChange" />
+      <div class="flex right-0">
+        <Navbar :selected-time="selectedTime" @update-time="handleTimeChange"/>
       </div>
     </div>
 
