@@ -27,7 +27,7 @@
         {{ char }}
       </span>
       <!-- Render any extra letters typed beyond the actual word -->
-      <span v-if="getExtraLetters(wordIndex)" class="text-primary-red">
+      <span v-if="getExtraLetters(wordIndex)" class="text-primary-red dark:text-primary-red">
         {{ getExtraLetters(wordIndex) }}
       </span>
     </div>

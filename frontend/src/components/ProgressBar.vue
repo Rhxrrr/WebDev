@@ -66,13 +66,13 @@ const emit = defineEmits(["exitRace", "enterRace"]);
   <button
     v-if="!game.inGame"
     @click="emit('enterRace')"
-    class="p-2 text-lg rounded-lg text-primary-paige bg-secondary-grey hover:bg-primary-red"
+    class="p-2 text-lg rounded-lg text-primary-paige bg-secondary-grey hover:bg-primary-red dark:text-primary-paige dark:bg-secondary-grey dark:hover:bg-primary-red"
   >
     Enter Race
   </button>
   <!-- Race panel shown when player is in race -->
   <div
-    class="w-[45%] p-2 flex items-center flex-col justify-center text-primary-paige"
+    class="w-[45%] p-2 flex items-center flex-col justify-center text-primary-paige dark:text-primary-paige"
     v-if="game.inGame"
   >
     <div v-if="!game">
@@ -104,7 +104,7 @@ const emit = defineEmits(["exitRace", "enterRace"]);
           </div>
           <div class="relative h-4 bg-gray-700 rounded-full overflow-hidden">
             <div
-              class="absolute top-0 left-0 h-full bg-primary-paige transition-all duration-300"
+              class="absolute top-0 left-0 h-full bg-primary-paige dark:bg-primary-paige transition-all duration-300"
               :style="{ width: `${player.progress}%` }"
             ></div>
           </div>
@@ -124,14 +124,14 @@ const emit = defineEmits(["exitRace", "enterRace"]);
           <button
             v-if="!game.gameEnded && game.inGame"
             @click="emit('exitRace')"
-            class="p-2 rounded-lg bg-secondary-grey hover:bg-primary-red"
+            class="p-2 rounded-lg bg-secondary-grey hover:bg-primary-red dark:bg-secondary-grey dark:hover:bg-primary-red"
           >
             Exit Race
           </button>
           <button
             v-if="game.gameEnded"
             @click="emit('enterRace')"
-            class="p-2 rounded-lg bg-secondary-grey hover:bg-primary-red"
+            class="p-2 rounded-lg bg-secondary-grey hover:bg-primary-red dark:bg-secondary-grey dark:hover:bg-primary-red"
           >
             Play Again
           </button>
