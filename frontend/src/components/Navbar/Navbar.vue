@@ -20,7 +20,7 @@ const emit = defineEmits(["update-time"]);
 const router = useRouter();
 const route = useRoute();
 
-const isHome = computed(() => route.path === "/");
+const isHome = computed(() => route.path === "/home");
 const isLoading = ref(false);
 const selectedTime = ref("15");
 
@@ -34,7 +34,7 @@ const textItems = [
     action: async () => {
       const module = await import("@composables/storiesAction.js");
       await module.default();
-      await router.push("/");
+      await router.push("/home");
       return { default: async () => {} };
     },
   },
@@ -90,7 +90,7 @@ const handleNavItemClick = async (label) => {
   const navigatingToHome = !isHome.value;
 
   if ((label === "Time" || label === "Graph") && navigatingToHome) {
-    await router.push("/");
+    await router.push("/home");
     await nextTick();
     if (label === "Graph" && !showGraph.value) {
       toggleGraph();
@@ -104,7 +104,7 @@ const handleTimeSelect = async (item) => {
   isMenuOpen.value = false;
   selectedTime.value = item;
   if (!isHome.value) {
-    await router.push("/");
+    await router.push("/home");
   }
   emit("update-time", parseInt(item));
 };
