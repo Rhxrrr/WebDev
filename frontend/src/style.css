@@ -36,30 +36,7 @@
 
     --text-primary-paige-hover: #fcfbfa;
   }
-
-  @layer utilities {
-    .bg-primary-grey {
-      background-color: #2c2e30;
-    }
-    .bg-secondary-grey {
-      background-color: #27292b;
-    }
-    .text-primary-grey {
-      color: #595b5e;
-    }
-    .hover\:text-primary-paige:hover {
-      color: #d4c9be;
-    }
-    .text-primary-paige {
-      color: #d4c9be;
-    }
-    .text-primary-red {
-      color: #ff4056;
-    }
-    .bg-primary-paige {
-      background-color: #d4c9be;
-    }
-  }
+  
   /* Utility classes */
   .bg-primary-grey {
     background-color: var(--primary-grey);
