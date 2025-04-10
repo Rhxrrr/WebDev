@@ -20,7 +20,7 @@ const routes = [
     name: "Home",
     component: Home,
     beforeEnter: (to, from, next) => {
-      if (localStorage.getItem("username") && localStorage.getItem("password")) {
+      if (sessionStorage.getItem("username")) {
         console.log("User logged in. Proceeding to home.");
         next();  // Allow access to the home page
       } else {

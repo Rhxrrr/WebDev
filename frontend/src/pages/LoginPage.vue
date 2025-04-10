@@ -22,8 +22,7 @@ const login = () => {
 
     // Check if user exists and if the password matches
     if (user && user.password === password.value) {
-        localStorage.setItem("username", username.value);
-        localStorage.setItem("password", password.value);
+        sessionStorage.setItem("username", username.value);
         router.push('/home');
     }
     else {
@@ -49,8 +48,7 @@ const createAccount = () => {
 
     alert('Account Created!');
     localStorage.setItem("users", JSON.stringify(users));
-    localStorage.setItem("username", username.value);
-    localStorage.setItem("password", password.value);
+    sessionStorage.setItem("username", username.value);
     router.push('/home');
 };
 </script>
