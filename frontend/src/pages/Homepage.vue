@@ -11,6 +11,7 @@ import useGraphToggle from "@/composables/useGraphToggle";
 import TypingGraph from "../components/TypingGraph.vue";
 
 const { showGraph } = useGraphToggle();
+const currentMode = ref("stories");
 
 const formattedText = ref("");
 const accuracy = ref(100);
@@ -29,6 +30,8 @@ watch(textContent, (newValue) => {
   formattedText.value = formatText(newValue);
   resetTypingState();
 });
+
+
 
 // Load initial story on mount
 onMounted(async () => {
@@ -119,6 +122,32 @@ const handleTimeChange = async (newTime) => {
     );
   }
 };
+
+// Watch when typing ends, then send result to the backend
+watch(
+  () => typingEnded.value,
+  async (ended) => {
+    if (!ended) return;
+
+    try {
+      await fetch("http://localhost:3000/api/leaderboard/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          username: "Anonymous", // replace this later with actual user if needed
+          wpm: wpm.value,
+          accuracy: accuracy.value,
+          time_taken: selectedTime.value,
+          mode: "stories",
+        }),
+      });
+      console.log("Score saved to leaderboard!");
+    } catch (error) {
+      console.error("Failed to save result:", error);
+    }
+  }
+);
+
 </script>
 
 <template>
