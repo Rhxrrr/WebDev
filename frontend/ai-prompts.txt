@@ -1,0 +1,6 @@
+AI Prompts
+
+"please improve and enhance comments to meet coding standards"
+"how to set up a basic vue, vite, express and tailwindcss setup"
+"how to integrate sockets for multiplayer game"
+"how to properly use D3 to make dyanmic graph"

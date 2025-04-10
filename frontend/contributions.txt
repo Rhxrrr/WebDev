@@ -1,0 +1,32 @@
+Group Members and Their Contributions:
+
+1. Denis Djemilovc  
+   - Implemented login functionality  
+   - Developed dark and light mode toggle  
+   - Ensured responsive design for phone view  
+
+2. Derek Arthur  
+   - Helped implement login system  
+   - Contributed to dark/light mode logic  
+   - Worked on phone responsiveness and layout fixes  
+
+3. Hamzah Alhamadani  
+   - Design of the project 
+   - Built the race page (frontend and backend)  
+   - Implemented full race functionality and user flow  
+   - Set up socket connection for real-time racing logic  
+   - Developed the complete backend infrastructure  
+
+4. Adam Marcelo  
+   - Design of the project 
+   - Implemented homepage typing logic and functionality  
+   - Developed the navbar features and routing  
+   - Designed the homepage layout and styling  
+   - Created and integrated the typing graph  
+
+5. Firdous Hemani  
+   - Design of the project 
+   - Built the leaderboard backend API and routing  
+   - Developed the leaderboard frontend display  
+   - Connected the leaderboard to fetch real-time backend data  
+   - Integrated dynamic switching between race and story results  
