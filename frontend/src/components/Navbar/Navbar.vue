@@ -20,7 +20,7 @@ const emit = defineEmits(["update-time"]);
 const router = useRouter();
 const route = useRoute();
 
-const isHome = computed(() => route.path === "/");
+const isHome = computed(() => route.path === "/home");
 const isLoading = ref(false);
 const selectedTime = ref("15");
 

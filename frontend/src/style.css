@@ -24,19 +24,19 @@
     --primary-grey: #2c2e30;
     --secondary-grey: #27292b; 
 
-    --primary-paige: #fcfbfa;
+    --primary-paige: #d4c9be;
 
     --primary-red: #ff4056;
 
-    --primary-text: #d4c9be;
+    --primary-text: #595b5e;
     --secondary-text: #514c46;
 
     --bg-primary-beige: #d4c9be;
     --hover-bg-primary-red: #ff4056;
 
-    --text-primary-paige-hover: #fcfbfa;
+    --text-primary-paige-hover: #d4c9be;
   }
-  
+
   /* Utility classes */
   .bg-primary-grey {
     background-color: var(--primary-grey);
@@ -46,9 +46,6 @@
   }
   .text-primary-grey {
     color: var(--primary-text);
-  }
-  .hover\:bg-primary-grey:hover {
-    background-color: var(--primary-grey);
   }
   
   /* Accent colors (same for both themes) */

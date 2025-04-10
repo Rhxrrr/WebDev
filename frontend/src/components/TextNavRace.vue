@@ -22,6 +22,8 @@ const formattedTime = computed(() => {
   const secs = time % 60;
   return `${mins}:${secs.toString().padStart(2, "0")}`;
 });
+
+console.log('${mins}:${secs.toString().padStart(2, "0")}')
 </script>
 
 <template>
@@ -32,7 +34,7 @@ const formattedTime = computed(() => {
     <div
       class="w-full sm:w-auto flex justify-center sm:grid sm:grid-cols-3 gap-4 items-center mb-2 sm:mb-0"
     >
-      <span>Time: {{ props.formattedTime }}</span>
+      <span>Time: {{ formattedTime }}</span>
       <span>WPM: {{ props.wpm }}</span>
       <span>Accuracy: {{ props.accuracyCount }}%</span>
     </div>
