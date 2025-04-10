@@ -10,22 +10,25 @@ Group Members and Their Contributions:
    - Contributed to dark/light mode logic  
    - Worked on phone responsiveness and layout fixes  
 
-3. Hamzah Alhamadani  
-   - Design of the project 
-   - Built the race page (frontend and backend)  
-   - Implemented full race functionality and user flow  
-   - Set up socket connection for real-time racing logic  
+3. Hamzah Alhamadani
+   - Complete dark mode design and implementation
+   - Vite, TailwindCSS, Postgres, Express, Vue Setup
+   - Design of the project frontend
+   - Complete design engineering and implementation of the racepage
+   - Set up socket connection for real-time racing logic
+   - Stories api endpoints 
    - Developed the complete backend infrastructure  
 
-4. Adam Marcelo  
-   - Design of the project 
-   - Implemented homepage typing logic and functionality  
+4. Adam Marcelo
+   - Complete dark mode design and implementation
+   - Design of the project frontend
+   - Complete design engineering and implementation of the homepage
    - Developed the navbar features and routing  
-   - Designed the homepage layout and styling  
-   - Created and integrated the typing graph  
+   - Created and integrated the typing graph
+   - Configered and designed all svg icon 
 
-5. Firdous Hemani  
-   - Design of the project 
+5. Firdous Hemani
+   - Design of the project frontend
    - Built the leaderboard backend API and routing  
    - Developed the leaderboard frontend display  
    - Connected the leaderboard to fetch real-time backend data  
