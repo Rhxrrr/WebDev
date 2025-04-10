@@ -1,0 +1,2 @@
+ALTER TABLE leaderboard ADD COLUMN IF NOT EXISTS mode TEXT DEFAULT 'stories';
+ALTER TABLE leaderboard ADD COLUMN IF NOT EXISTS placement INTEGER;

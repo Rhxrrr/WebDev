@@ -3,6 +3,7 @@ import cors from "cors";
 import path from "path";
 import { fileURLToPath } from "url";
 import storiesRoutes from "./routes/storiesRoutes.js";
+import leaderboardRoutes from "./routes/leaderboardRoutes.js";
 
 const app = express();
 
@@ -16,6 +17,7 @@ app.use(express.json());
 
 // API Routes
 app.use("/api/stories", storiesRoutes);
+app.use("/api/leaderboard", leaderboardRoutes);
 
 // Serve frontend static files from ../frontend/dist
 const frontendPath = path.resolve(__dirname, "../../frontend/dist");

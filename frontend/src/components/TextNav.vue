@@ -40,7 +40,7 @@ const emit = defineEmits(["new-test"]);
 
 <template>
   <nav
-    class="p-2 justify-between bg-secondary-grey dark:bg-secondary-grey w-full flex flex-wrap rounded-lg text-primary-grey dark:text-primary-grey text-sm sm:text-lg"
+    class="p-2 justify-between bg-secondary-grey dark:bg-secondary-grey w-full flex flex-wrap rounded-lg text-primary-paige dark:text-primary-paige text-sm sm:text-lg"
   >
     <!-- Left: Typing stats -->
     <div
