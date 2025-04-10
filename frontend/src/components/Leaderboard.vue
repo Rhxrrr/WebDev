@@ -32,7 +32,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="bg-primary-grey min-h-screen w-screen p-4 flex flex-col items-center text-white font-sans">
+  <div class="bg-primary-grey min-h-screen w-screen p-4 flex flex-col items-center text-white">
     <!-- Logo + Navbar -->
     <div class="w-[70%] sm:w-[100%] flex items-center justify-center mt-6">
       <router-link to="/" class="w-26 relative mr-6">
